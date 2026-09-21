@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Ti 💛</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Great+Vibes&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Courier Prime', monospace; }
+        body { background-color: #000; color: #fff; height: 100vh; overflow: hidden; position: relative; }
+        
+        /* Video de fondo a pantalla completa */
+        #bg-video { position: fixed; top: 0; left: 0; min-width: 100%; min-height: 100%; object-fit: cover; z-index: -1; filter: brightness(0.6); }
+
+        /* Reproductor de Audio a la Izquierda (MÁS ARRIBA) */
+        .reproductor {
+            position: absolute;
+            top: 15vh; /* Lo subimos, antes estaba en 50% */
+            left: 5vw; /* Pegado al lado izquierdo */
+            background: rgba(10, 0, 20, 0.75);
+            padding: 25px;
+            border-radius: 20px;
+            border: 2px solid #d883ff;
+            backdrop-filter: blur(8px);
+            text-align: center;
+            box-shadow: 0 0 25px rgba(216, 131, 255, 0.4);
+            z-index: 10;
+            max-width: 300px;
+        }
+
+        .reproductor h3 { color: #fff; font-size: 1.5rem; margin-bottom: 10px; text-shadow: 0 0 10px #ff00de; }
+        #cancion-actual { color: #fce803; margin-bottom: 20px; font-weight: bold; text-shadow: 0 0 5px rgba(252, 232, 3, 0.5); }
+
+        .botones-audio { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+        .btn-song {
+            background: transparent;
+            color: #fff;
+            border: 1px solid #d883ff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            width: 100%;
+        }
+        .btn-song:hover, .btn-song.active { background: #d883ff; color: #000; box-shadow: 0 0 15px #d883ff; }
+
+        /* --- IMÁGENES DECORATIVAS (NIÑA Y NIÑO) --- */
+        .foto-deco {
+            position: absolute;
+            width: clamp(120px, 15vw, 220px); /* Tamaño responsivo */
+            border-radius: 15px; /* Bordes redondeados */
+            object-fit: cover;
+            z-index: 5;
+            animation: flotarFoto 4s ease-in-out infinite alternate;
+            /* Si tus imágenes tienen fondo blanco y son tipo sticker, descomenta la línea de abajo quitando las barras: */
+            /* mix-blend-mode: multiply; */
+        }
+
+        .foto-nina {
+            top: 55vh; /* Debajo del reproductor */
+            left: 5vw; /* Alineado a la izquierda igual que la playlist */
+            border: 2px solid #00ffff; /* Brillo cian */
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+        }
+
+        .foto-nino {
+            top: 15vh; /* A la misma altura del reproductor */
+            right: 5vw; /* Pegado a la esquina derecha */
+            border: 2px solid #ff00de; /* Brillo fucsia */
+            box-shadow: 0 0 20px rgba(255, 0, 222, 0.4);
+            animation-delay: 1.5s; /* Para que floten a destiempo */
+        }
+
+        @keyframes flotarFoto {
+            0% { transform: translateY(0px) rotate(-3deg); }
+            100% { transform: translateY(-15px) rotate(3deg); }
+        }
+
+        /* Botón Neón para el mensaje final a la derecha (Abajo del niño) */
+        #btn-mensaje {
+            position: absolute;
+            bottom: 15vh;
+            right: 5vw; 
+            background: transparent;
+            color: #ff00de;
+            border: 2px solid #ff00de;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 15px #ff00de, inset 0 0 10px #ff00de;
+            text-shadow: 0 0 8px #ff00de;
+            animation: latidoFinal 2s infinite alternate;
+            z-index: 10;
+            transition: 0.3s;
+        }
+        #btn-mensaje:hover {
+            background: #ff00de;
+            color: #fff;
+            box-shadow: 0 0 30px #ff00de, inset 0 0 20px #ff00de;
+            text-shadow: 0 0 10px #fff;
+            transform: scale(1.1);
+        }
+
+        @keyframes latidoFinal { 
+            0% { transform: scale(1); } 
+            100% { transform: scale(1.05); } 
+        }
+
+        /* Modal Mensaje Final (Estilo Dark Neón) */
+        #modal-final {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(6px);
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.5s; z-index: 100;
+        }
+        #modal-final.visible { opacity: 1; pointer-events: auto; }
+        
+        .carta-final {
+            background: rgba(15, 0, 25, 0.9);
+            color: #fff;
+            padding: 40px; border-radius: 20px; max-width: 500px; width: 90%;
+            text-align: center; border: 2px solid #00ffff;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.6), inset 0 0 20px rgba(0, 255, 255, 0.2);
+            position: relative;
+        }
+        
+        .btn-cerrar { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; background: none; border: none; cursor: pointer; color: #00ffff; text-shadow: 0 0 5px #00ffff; transition: 0.3s;}
+        .btn-cerrar:hover { color: #ff00de; text-shadow: 0 0 10px #ff00de; transform: rotate(90deg); }
+        
+        .carta-final h2 { 
+            font-family: 'Great Vibes', cursive; 
+            font-size: 3.5rem; 
+            color: #ff00de; 
+            margin-bottom: 20px; 
+            text-shadow: 0 0 10px #ff00de, 0 0 20px #ff00de;
+        }
+        .carta-final p { 
+            font-family: 'Courier Prime', monospace; 
+            font-size: 1.1rem; 
+            line-height: 1.6; 
+            color: #e0e0e0;
+            text-shadow: 0 0 4px rgba(255,255,255,0.5);
+            margin-bottom: 15px;
+        }
+        
+        .neon-text {
+            color: #00ffff;
+            text-shadow: 0 0 5px #00ffff, 0 0 15px #00ffff;
+            font-weight: bold;
+            font-size: 1.2rem !important;
+        }
+
+        /* Ajustes para celulares */
+        @media (max-width: 768px) {
+            .reproductor { top: 10vh; left: 50%; transform: translateX(-50%); width: 85%; }
+            .foto-nina { top: 40vh; left: 5vw; width: 100px; }
+            .foto-nino { top: 40vh; right: 5vw; width: 100px; }
+            #btn-mensaje { bottom: 8vh; left: 50%; transform: translateX(-50%); width: 80%; text-align: center; right: auto; }
+            #btn-mensaje:hover { transform: translateX(-50%) scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Video de Fondo (Muteado) -->
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="video/fondo.mp4" type="video/mp4">
+    </video>
+
+    <!-- Reproductor de Audio (Izquierda Arriba) -->
+    <div class="reproductor">
+        <h3>🎧 Playlist 🎧</h3>
+        <p id="cancion-actual">Sonando: Aquel Nap</p>
+        
+        <div class="botones-audio">
+            <button class="btn-song active" onclick="cambiarCancion('audio/aquel nap.mp3', 'Aquel Nap', this)">Aquel Nap</button>
+            <button class="btn-song" onclick="cambiarCancion('audio/mas que algo.mp3', 'Más que algo', this)">Más que algo</button>
+        </div>
+        
+        <audio id="audio-player" src="audio/aquel nap.mp3" autoplay loop></audio>
+    </div>
+
+    <!-- Imágenes Decorativas (Niña y Niño) -->
+    <img src="img/niña.jpg" class="foto-deco foto-nina" alt="Niña">
+    <img src="img/niño.jpg" class="foto-deco foto-nino" alt="Niño">
+
+    <!-- Botón Neón a la derecha (Abajo) -->
+    <button id="btn-mensaje"> Bonussss 🫶 💌</button>
+
+    <!-- Modal Final Full Neón -->
+    <div id="modal-final">
+        <div class="carta-final">
+            <button class="btn-cerrar" onclick="cerrarModal()">✖</button>
+            <h2>Mongaaaa 💛</h2>
+            <p>No sabia cual te gustaría jajaja pero espero sean una al menos de estass...</p>
+            <p class="neon-text">Te quiero mucho, y que sean muchos días más en los que compartamos muchas cosas.</p>
+            <p>Nos veremos en el concierto POR FINNNNNNNNNNNN </p>
+            <br>
+            <p><strong>- Love u - Gabrielll </strong></p>
+        </div>
+    </div>
+
+    <script>
+        const reproductor = document.getElementById('audio-player');
+        const textoCancion = document.getElementById('cancion-actual');
+        const modal = document.getElementById('modal-final');
+
+        // Autoplay del audio al primer clic en la pantalla
+        document.body.addEventListener('click', () => {
+            if (reproductor.paused) reproductor.play();
+        }, { once: true });
+
+        // Función para cambiar de canción
+        function cambiarCancion(ruta, nombre, boton) {
+            reproductor.src = ruta;
+            reproductor.play();
+            textoCancion.innerText = 'Sonando: ' + nombre;
+            
+            // Efecto visual en los botones
+            document.querySelectorAll('.btn-song').forEach(btn => btn.classList.remove('active'));
+            boton.classList.add('active');
+        }
+
+        // Mostrar y ocultar la carta neón
+        document.getElementById('btn-mensaje').addEventListener('click', () => {
+            modal.classList.add('visible');
+        });
+
+        function cerrarModal() {
+            modal.classList.remove('visible');
+        }
+    </script>
+</body>
+</html>
