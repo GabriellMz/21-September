@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Historia 💛</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="container">
+    
+    <!-- PANTALLA INICIAL (CANDADO) -->
+    <div id="pantalla-inicio">
+        <div class="candado-container" id="btn-entrar">
+            <div class="corazon-candado">💖🔒</div>
+            <p>Toca para abrir</p>
+        </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div id="contenido" class="oculto">
+        <!-- Botón para la siguiente página -->
+        <a href="sorpresa.html" id="btn-siguiente">Siguiente Sorpresa ➔</a>
+        <!-- Fondo de Estrellas y Corazones Flotantes -->
+        <div class="cielo-estrellado"></div>
+        <div class="corazones-fondo">
+            <div class="corazon-flotante c1">💜</div>
+            <div class="corazon-flotante c2">✨</div>
+            <div class="corazon-flotante c3">💖</div>
+            <div class="corazon-flotante c4">💛</div>
+            <div class="corazon-flotante c5">✨</div>
+            <div class="corazon-flotante c6">💜</div>
+            <!-- Personitas en los laterales -->
+        <div class="personita-lateral personita-izq">
+            <img src="img/personita.jpg" alt="Personita Izquierda">
+        </div>
+        <div class="personita-lateral personita-der">
+            <img src="img/personita1.jpg" alt="Personita Derecha">
+        </div>
+        </div>
+
+        
+
+        <div class="cabecera">
+            <h1 class="titulo-neon">Our History 💛❤️</h1>
+            <div class="contador-container">
+                <h2>Donde todo comenzó:</h2>
+                <div id="contador">Calculando...</div>
+            </div>
+            <button id="btn-carta">Leer Carta 💌</button>
+        </div>
+
+        <!-- RAMO DE FLORES AMARILLAS ANIMADAS -->
+        <div class="ramo-contenedor">
+            <div class="flowers">
+                <!-- Flor 1 (Centro) -->
+                <div class="flower flower--1">
+                    <div class="flower__leafs flower__leafs--1">
+                        <div class="flower__leaf flower__leaf--1"></div>
+                        <div class="flower__leaf flower__leaf--2"></div>
+                        <div class="flower__leaf flower__leaf--3"></div>
+                        <div class="flower__leaf flower__leaf--4"></div>
+                        <div class="flower__white-circle"></div>
+                    </div>
+                    <div class="flower__line">
+                        <div class="flower__line__leaf flower__line__leaf--1"></div>
+                        <div class="flower__line__leaf flower__line__leaf--2"></div>
+                    </div>
+                </div>
+
+                <!-- Flor 2 (Derecha media) -->
+                <div class="flower flower--2">
+                    <div class="flower__leafs flower__leafs--2">
+                        <div class="flower__leaf flower__leaf--1"></div>
+                        <div class="flower__leaf flower__leaf--2"></div>
+                        <div class="flower__leaf flower__leaf--3"></div>
+                        <div class="flower__leaf flower__leaf--4"></div>
+                        <div class="flower__white-circle"></div>
+                    </div>
+                    <div class="flower__line">
+                        <div class="flower__line__leaf flower__line__leaf--1"></div>
+                    </div>
+                </div>
+
+                <!-- Flor 3 (Izquierda media) -->
+                <div class="flower flower--3">
+                    <div class="flower__leafs flower__leafs--3">
+                        <div class="flower__leaf flower__leaf--1"></div>
+                        <div class="flower__leaf flower__leaf--2"></div>
+                        <div class="flower__leaf flower__leaf--3"></div>
+                        <div class="flower__leaf flower__leaf--4"></div>
+                        <div class="flower__white-circle"></div>
+                    </div>
+                    <div class="flower__line">
+                        <div class="flower__line__leaf flower__line__leaf--1"></div>
+                    </div>
+                </div>
+
+                <!-- Flor 4 (Extremo derecho) -->
+                <div class="flower flower--4">
+                    <div class="flower__leafs flower__leafs--4">
+                        <div class="flower__leaf flower__leaf--1"></div>
+                        <div class="flower__leaf flower__leaf--2"></div>
+                        <div class="flower__leaf flower__leaf--3"></div>
+                        <div class="flower__leaf flower__leaf--4"></div>
+                        <div class="flower__white-circle"></div>
+                    </div>
+                    <div class="flower__line">
+                        <div class="flower__line__leaf flower__line__leaf--1"></div>
+                    </div>
+                </div>
+
+                <!-- Flor 5 (Extremo izquierdo) -->
+                <div class="flower flower--5">
+                    <div class="flower__leafs flower__leafs--5">
+                        <div class="flower__leaf flower__leaf--1"></div>
+                        <div class="flower__leaf flower__leaf--2"></div>
+                        <div class="flower__leaf flower__leaf--3"></div>
+                        <div class="flower__leaf flower__leaf--4"></div>
+                        <div class="flower__white-circle"></div>
+                    </div>
+                    <div class="flower__line">
+                        <div class="flower__line__leaf flower__line__leaf--1"></div>
+                    </div>
+                </div>
+
+                <!-- Lazo que amarra el ramo -->
+                <div class="lazo-ramo"></div>
+            </div>
+        </div>
+
+        <!-- Audio de fondo -->
+        <audio id="musica-fondo" src="audio/bruno.mp3" loop></audio>
+    </div>
+
+    <!-- MODAL DE LA CARTA -->
+    <div id="modal-carta" class="oculto">
+        <div class="carta-papel">
+            <button id="cerrar-carta">✖</button>
+            <h2 class="titulo-carta">Para mi persona favorita</h2>
+            <div class="texto-carta">
+                <p>Buenos Diassss Mongaaaa 💛...</p>
+                <p>Una vez más intentando sorprenderte en esta primavera, una vez más en la que te demuestro el cariño que te tengo, 
+                    y que siempre vas a tener estos detalles de mi parte ya que eres una de las personas más increibles que he conocido,
+                    a pesar de aún no poder vernos, quiero que sepas lo importante que eres para mí y nada ahora se viene este concierto
+                    al que vamos a ir juntos y vernos después de tanto tiempo en el cual quizá yo al menos hubiera hecho el esfuerzo de 
+                    escaparme e ir a verte jajaja pero sabes pasan cosas y al final no se llega a dar , pero eso es lo de menos, ahora solo
+                    te dejo con este bonito detalle que espero que te guste y que está hecho con mucho cariño. 
+                    </p>
+                    <p> Quien diría que ya han pasado 2 años, 5 meses y 20 días en los que tuve la oportunidad de conocerte por ese curso de ingles
+                        jajajaja pero quien iba a pensar que sería el inicio de algo muy bonito que hasta ahora se mantiene a pesar de no vernos.
+                        Cada risa , cada momento que pasamos conversando o anécdotas que nos hemos contado e incluso cosas que han pasado y pucha 
+                        me quedo sin palabras , sin poder describir esto y solo de nuevo agradecerte por este vinculo que hemos llegado a formar hasta 
+                        ahora.
+                    </p>
+                <br>
+                <p>Con mucho cariño y espero que te guste 🫶,</p>
+                <p><strong>Gabrielll Mongo 😝</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
